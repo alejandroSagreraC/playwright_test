@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Playwright BDD Boilerplate: a formal public showcase template for E2E test automation.">
+  <title>Playwright BDD Boilerplate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f6f7;
+      --bg-soft: #e8eef1;
+      --surface: #ffffff;
+      --ink: #1f2a30;
+      --muted: #4f626d;
+      --primary: #0d4a65;
+      --primary-strong: #09364a;
+      --accent: #b8882f;
+      --line: #d2dce1;
+      --radius: 14px;
+      --shadow: 0 14px 34px rgba(9, 54, 74, 0.11);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(1300px 620px at 100% -8%, rgba(13, 74, 101, 0.14), transparent 65%),
+        radial-gradient(900px 500px at -10% 0%, rgba(184, 136, 47, 0.12), transparent 63%),
+        linear-gradient(180deg, var(--bg-soft), var(--bg));
+      font-family: "Source Sans 3", "Segoe UI", sans-serif;
+      line-height: 1.62;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 56px;
+      animation: revealPage 760ms ease-out;
+    }
+
+    .hero {
+      background: linear-gradient(132deg, #0f3f57, #135f7f 62%, #27799a);
+      color: #f6fafc;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 38px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184, 136, 47, 0.44), transparent 68%);
+      right: -66px;
+      top: -78px;
+      filter: blur(1.8px);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.15);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: Merriweather, Georgia, serif;
+      font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+      line-height: 1.18;
+      letter-spacing: 0.2px;
+    }
+
+    .hero p {
+      margin: 14px 0 0;
+      max-width: 760px;
+      color: rgba(245, 251, 255, 0.92);
+      font-size: 1.06rem;
+    }
+
+    .hero-meta {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.18px;
+      color: #eff8fc;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      padding: 5px 11px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .card {
+      grid-column: span 6;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 7px 20px rgba(15, 63, 87, 0.08);
+      padding: 20px 20px 18px;
+      animation: liftIn 580ms ease both;
+      animation-delay: calc(var(--stagger, 0) * 70ms);
+    }
+
+    .card.full {
+      grid-column: span 12;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: Merriweather, Georgia, serif;
+      font-size: 1.12rem;
+      color: var(--primary-strong);
+      line-height: 1.3;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    li + li {
+      margin-top: 6px;
+    }
+
+    code {
+      font-family: Consolas, "Cascadia Mono", "Liberation Mono", monospace;
+      background: #f3f7f9;
+      border: 1px solid #dce5ea;
+      border-radius: 7px;
+      padding: 1px 6px;
+      font-size: 0.9rem;
+      color: #15384b;
+    }
+
+    pre {
+      margin: 12px 0 0;
+      border: 1px solid #d4dee4;
+      border-radius: 10px;
+      background: #f8fbfd;
+      color: #173849;
+      overflow: auto;
+      padding: 12px 13px;
+      font-size: 0.91rem;
+      line-height: 1.52;
+    }
+
+    pre code {
+      background: transparent;
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .card {
+        grid-column: span 12;
+      }
+
+      .hero {
+        padding: 30px 24px;
+      }
+    }
+
+    @keyframes revealPage {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes liftIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="hero-top">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 8l8-5 8 5-8 5-8-5z"></path>
+            <path d="M4 16l8 5 8-5"></path>
+            <path d="M4 12l8 5 8-5"></path>
+          </svg>
+        </div>
+        <h1>Playwright BDD Boilerplate</h1>
+      </div>
+      <p>
+        A formal, production-friendly starter for E2E automation with Playwright, TypeScript, BDD, and the Page Object Model.
+        Built to serve as a public GitHub showcase and a reusable implementation baseline.
+      </p>
+      <div class="hero-meta" aria-label="Technology tags">
+        <span class="pill">Playwright</span>
+        <span class="pill">TypeScript</span>
+        <span class="pill">BDD</span>
+        <span class="pill">POM</span>
+        <span class="pill">CI/CD Ready</span>
+      </div>
+    </header>
+
+    <section class="main-grid">
+      <article class="card" style="--stagger: 1">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M3 12h18"></path>
+            <path d="M3 6h18"></path>
+            <path d="M3 18h18"></path>
+          </svg>
+          Features
+        </h2>
+        <ul>
+          <li>Playwright + TypeScript for robust E2E testing.</li>
+          <li>BDD with Gherkin scenarios and step definitions.</li>
+          <li>POM to separate UI interactions from test behavior.</li>
+          <li>Multi-environment configuration via environment variables.</li>
+          <li>CI/CD-friendly structure and conventions.</li>
+        </ul>
+      </article>
+
+      <article class="card" style="--stagger: 2">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 7h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 17h10"></path>
+          </svg>
+          Project Structure
+        </h2>
+        <ul>
+          <li><code>features/</code>: Gherkin .feature files.</li>
+          <li><code>steps/</code>: BDD step implementations and fixtures.</li>
+          <li><code>models/</code>: Page Objects.</li>
+          <li><code>config/</code>: configuration helpers.</li>
+          <li><code>playwright.config.ts</code>: Playwright runtime configuration.</li>
+        </ul>
+      </article>
+
+      <article class="card" style="--stagger: 3">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 3v18"></path>
+            <path d="M3 12h18"></path>
+          </svg>
+          Requirements
+        </h2>
+        <ul>
+          <li>Node.js 20 or later</li>
+          <li>npm</li>
+        </ul>
+      </article>
+
+      <article class="card" style="--stagger: 4">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 12h8"></path>
+          </svg>
+          Installation
+        </h2>
+        <pre><code>npm install
+npx playwright install</code></pre>
+      </article>
+
+      <article class="card" style="--stagger: 5">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h10"></path>
+            <path d="M4 18h8"></path>
+          </svg>
+          Quick Start
+        </h2>
+        <ol>
+          <li>Copy the environment template file.</li>
+          <li>Adjust variables for your application.</li>
+          <li>Run the test suite.</li>
+        </ol>
+        <pre><code># macOS/Linux
+cp .env.example .env.qa
+
+# Windows PowerShell
+copy .env.example .env.qa
+
+npm run bddgen
+npm run test:qa</code></pre>
+      </article>
+
+      <article class="card" style="--stagger: 6">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 3l8 4v10l-8 4-8-4V7l8-4z"></path>
+            <path d="M8 12h8"></path>
+          </svg>
+          Environment Variables (Example)
+        </h2>
+        <pre><code>APP_BASE_URL=https://example.test
+E2E_USER=test.user@example.test
+E2E_PASSWORD=change_me
+ENV=qa</code></pre>
+      </article>
+
+      <article class="card" style="--stagger: 7">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M5 4h14"></path>
+            <path d="M5 12h14"></path>
+            <path d="M5 20h14"></path>
+          </svg>
+          Execution
+        </h2>
+        <pre><code>npm run bddgen
+npm run test:qa
+npm run test:stg
+npm run test:prod</code></pre>
+      </article>
+
+      <article class="card" style="--stagger: 8">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 4h16v12H4z"></path>
+            <path d="M8 20h8"></path>
+          </svg>
+          Reports
+        </h2>
+        <ul>
+          <li>Playwright HTML report.</li>
+          <li>Traces and execution artifacts for each run.</li>
+        </ul>
+        <pre><code>npx playwright show-report</code></pre>
+      </article>
+
+      <article class="card full" style="--stagger: 9">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 2l7 4v6c0 5-3.5 8.7-7 10-3.5-1.3-7-5-7-10V6l7-4z"></path>
+            <path d="M9 12l2 2 4-4"></path>
+          </svg>
+          Security Best Practices
+        </h2>
+        <ul>
+          <li>Never commit real credentials to the repository.</li>
+          <li>Use local .env files and CI secret managers.</li>
+          <li>Keep pre-commit hooks and secret scanning enabled.</li>
+        </ul>
+      </article>
+
+      <article class="card full" style="--stagger: 10">
+        <h2 class="section-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M12 4v16"></path>
+            <path d="M5 11h14"></path>
+          </svg>
+          License
+        </h2>
+        <p class="muted">Define the license for this template (for example, MIT).</p>
+      </article>
+    </section>
+
+    <p class="footer">Prepared for GitHub Pages publication as a formal project showcase.</p>
+  </main>
+</body>
+</html>
