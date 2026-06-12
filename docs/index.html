@@ -3,24 +3,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Playwright BDD Boilerplate: a formal public showcase template for E2E test automation.">
-  <title>Playwright BDD Boilerplate</title>
+  <meta name="description" content="Playwright BDD Boilerplate - professional GitHub showcase for E2E automation with TypeScript, BDD, and Page Object Model.">
+  <meta name="theme-color" content="#0f3850">
+  <title>Playwright BDD Boilerplate | GitHub Showcase</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f4f6f7;
-      --bg-soft: #e8eef1;
+      --bg: #edf3f7;
+      --bg-strong: #dce9f2;
       --surface: #ffffff;
-      --ink: #1f2a30;
-      --muted: #4f626d;
-      --primary: #0d4a65;
-      --primary-strong: #09364a;
-      --accent: #b8882f;
-      --line: #d2dce1;
-      --radius: 14px;
-      --shadow: 0 14px 34px rgba(9, 54, 74, 0.11);
+      --surface-alt: #f7fbff;
+      --ink: #14232c;
+      --muted: #4f6674;
+      --brand: #0f5c81;
+      --brand-strong: #0b415b;
+      --accent: #d18a26;
+      --line: #cfe0eb;
+      --ok: #1f7a52;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow-lg: 0 22px 44px rgba(9, 56, 80, 0.16);
+      --shadow-sm: 0 8px 20px rgba(9, 56, 80, 0.09);
     }
 
     * {
@@ -31,132 +36,281 @@
     body {
       margin: 0;
       padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: Manrope, "Segoe UI", sans-serif;
       color: var(--ink);
+      line-height: 1.6;
       background:
-        radial-gradient(1300px 620px at 100% -8%, rgba(13, 74, 101, 0.14), transparent 65%),
-        radial-gradient(900px 500px at -10% 0%, rgba(184, 136, 47, 0.12), transparent 63%),
-        linear-gradient(180deg, var(--bg-soft), var(--bg));
-      font-family: "Source Sans 3", "Segoe UI", sans-serif;
-      line-height: 1.62;
+        radial-gradient(1000px 520px at 100% -5%, rgba(15, 92, 129, 0.19), transparent 62%),
+        radial-gradient(760px 460px at -10% 8%, rgba(209, 138, 38, 0.18), transparent 60%),
+        linear-gradient(180deg, var(--bg-strong), var(--bg));
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.24) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at 50% 35%, black 42%, transparent 90%);
     }
 
     .container {
-      max-width: 1080px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 32px 20px 56px;
-      animation: revealPage 760ms ease-out;
+      padding: 28px 20px 60px;
+      position: relative;
+      z-index: 1;
+      animation: page-enter 650ms ease-out;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 1px;
+      line-height: 1.1;
+    }
+
+    .brand-title {
+      font-size: 0.98rem;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing: 0.18px;
+      text-transform: uppercase;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(140deg, var(--brand), #1b7ca8);
+      color: #f9fcff;
+      box-shadow: 0 10px 22px rgba(15, 92, 129, 0.28);
+    }
+
+    .top-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ghost-link {
+      text-decoration: none;
+      color: var(--brand-strong);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px solid rgba(11, 65, 91, 0.22);
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.5);
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .ghost-link:hover {
+      background: rgba(255, 255, 255, 0.82);
+      transform: translateY(-1px);
     }
 
     .hero {
-      background: linear-gradient(132deg, #0f3f57, #135f7f 62%, #27799a);
-      color: #f6fafc;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      padding: 38px 34px;
       position: relative;
       overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(133deg, #0f3850, #0e5f83 68%, #2f8db4);
+      color: #f3f9fd;
+      box-shadow: var(--shadow-lg);
+      padding: 34px 30px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: end;
     }
 
-    .hero::after {
+    .hero::before {
       content: "";
       position: absolute;
-      width: 230px;
-      height: 230px;
+      width: 260px;
+      height: 260px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(184, 136, 47, 0.44), transparent 68%);
-      right: -66px;
-      top: -78px;
-      filter: blur(1.8px);
-      pointer-events: none;
-    }
-
-    .hero-top {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 11px;
-      background: rgba(255, 255, 255, 0.15);
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.24);
+      right: -64px;
+      top: -70px;
+      background: radial-gradient(circle, rgba(209, 138, 38, 0.45), transparent 68%);
+      animation: float-shape 8s ease-in-out infinite;
     }
 
     .hero h1 {
       margin: 0;
-      font-family: Merriweather, Georgia, serif;
-      font-size: clamp(1.75rem, 3.5vw, 2.6rem);
-      line-height: 1.18;
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(1.85rem, 4vw, 2.9rem);
+      line-height: 1.14;
       letter-spacing: 0.2px;
+      max-width: 18ch;
     }
 
     .hero p {
-      margin: 14px 0 0;
-      max-width: 760px;
-      color: rgba(245, 251, 255, 0.92);
-      font-size: 1.06rem;
+      margin: 13px 0 0;
+      max-width: 62ch;
+      color: rgba(241, 250, 255, 0.94);
+      font-size: 1.02rem;
     }
 
-    .hero-meta {
+    .badge-row {
       margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quality-badges {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .quality-badges img {
+      height: 22px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(236, 247, 252, 0.32);
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 12px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #ecf7fd;
+    }
+
+    .hero-actions {
+      margin-top: 20px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .pill {
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.18px;
-      color: #eff8fc;
-      background: rgba(255, 255, 255, 0.13);
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      border-radius: 999px;
-      padding: 5px 11px;
+    .btn {
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      border-radius: 11px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
     }
 
-    .main-grid {
+    .btn.primary {
+      color: #0f3850;
+      background: #f3f9fd;
+      box-shadow: 0 6px 14px rgba(8, 45, 64, 0.2);
+    }
+
+    .btn.secondary {
+      color: #eff8fc;
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.24);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-panel {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(242, 248, 252, 0.22);
+      border-radius: 14px;
+      padding: 14px;
+      backdrop-filter: blur(4px);
+      display: grid;
+      gap: 9px;
+    }
+
+    .stack-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(11, 40, 56, 0.25);
+      border: 1px solid rgba(231, 245, 251, 0.12);
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #eaf6fd;
+    }
+
+    .layout {
+      margin-top: 16px;
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 18px;
+      gap: 14px;
     }
 
     .card {
       grid-column: span 6;
-      background: var(--surface);
+      background: linear-gradient(180deg, var(--surface), var(--surface-alt));
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: 0 7px 20px rgba(15, 63, 87, 0.08);
-      padding: 20px 20px 18px;
-      animation: liftIn 580ms ease both;
-      animation-delay: calc(var(--stagger, 0) * 70ms);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 19px 18px;
+      animation: card-enter 520ms ease both;
+      animation-delay: calc(var(--stagger, 1) * 70ms);
     }
 
     .card.full {
       grid-column: span 12;
     }
 
-    .section-title {
-      margin: 0 0 10px;
+    .card-title {
+      margin: 0;
       display: flex;
       align-items: center;
       gap: 9px;
-      font-family: Merriweather, Georgia, serif;
+      color: var(--brand-strong);
+      font-family: Fraunces, Georgia, serif;
       font-size: 1.12rem;
-      color: var(--primary-strong);
       line-height: 1.3;
     }
 
     .icon {
-      width: 24px;
-      height: 24px;
-      color: var(--primary);
+      width: 22px;
+      height: 22px;
+      color: var(--brand);
       flex: 0 0 auto;
     }
 
@@ -170,57 +324,116 @@
       margin-top: 6px;
     }
 
-    code {
-      font-family: Consolas, "Cascadia Mono", "Liberation Mono", monospace;
-      background: #f3f7f9;
-      border: 1px solid #dce5ea;
-      border-radius: 7px;
-      padding: 1px 6px;
-      font-size: 0.9rem;
-      color: #15384b;
+    .grid-3 {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini {
+      border: 1px solid #d8e6ee;
+      border-radius: 10px;
+      background: #fcfeff;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--muted);
+      font-weight: 700;
     }
 
     pre {
       margin: 12px 0 0;
-      border: 1px solid #d4dee4;
-      border-radius: 10px;
-      background: #f8fbfd;
-      color: #173849;
-      overflow: auto;
-      padding: 12px 13px;
-      font-size: 0.91rem;
-      line-height: 1.52;
+      border-radius: 12px;
+      border: 1px solid #d6e3ea;
+      background: #0f2230;
+      color: #d5eaf5;
+      overflow-x: auto;
+      padding: 13px;
+      font-size: 0.9rem;
+      line-height: 1.48;
     }
 
-    pre code {
-      background: transparent;
-      border: 0;
-      padding: 0;
-      border-radius: 0;
+    code {
+      font-family: Consolas, "Cascadia Mono", "Liberation Mono", monospace;
     }
 
-    .muted {
-      color: var(--muted);
+    .inline-code {
+      border: 1px solid #d5e4ec;
+      background: #f4f9fc;
+      color: #144057;
+      border-radius: 7px;
+      padding: 1px 6px;
+      font-size: 0.88rem;
+    }
+
+    .highlight {
+      border: 1px solid rgba(31, 122, 82, 0.3);
+      background: linear-gradient(145deg, rgba(31, 122, 82, 0.12), rgba(255, 255, 255, 0.95));
+      color: #134b33;
+      border-radius: 12px;
+      padding: 11px 12px;
+      margin-top: 10px;
+      font-weight: 700;
+      font-size: 0.92rem;
     }
 
     .footer {
-      margin-top: 20px;
+      margin-top: 16px;
       text-align: center;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
       .card {
         grid-column: span 12;
       }
 
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        padding: 18px 14px 46px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .top-links {
+        flex-wrap: wrap;
+      }
+
       .hero {
-        padding: 30px 24px;
+        padding: 24px 18px;
+      }
+
+      .quality-badges img {
+        height: 20px;
       }
     }
 
-    @keyframes revealPage {
+    @keyframes page-enter {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes card-enter {
       from {
         opacity: 0;
         transform: translateY(10px);
@@ -231,203 +444,247 @@
       }
     }
 
-    @keyframes liftIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
+    @keyframes float-shape {
+      0%,
+      100% {
         transform: translateY(0);
+      }
+      50% {
+        transform: translateY(7px);
       }
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <header class="hero">
-      <div class="hero-top">
-        <div class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M4 8l8-5 8 5-8 5-8-5z"></path>
-            <path d="M4 16l8 5 8-5"></path>
-            <path d="M4 12l8 5 8-5"></path>
+    <div class="topbar">
+      <a class="brand" href="#top" aria-label="Project showcase home">
+        <span class="brand-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5h8a5 5 0 0 1 0 10H4z"></path>
+            <path d="M4 15h9a4 4 0 0 1 0 8H4z"></path>
+            <path d="M14.5 7.5h5"></path>
+            <path d="M17 5v5"></path>
           </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-title">Playwright BDD Boilerplate</span>
+          <span class="brand-sub">Automation Showcase</span>
+        </span>
+      </a>
+      <nav class="top-links" aria-label="Primary">
+        <a class="ghost-link" href="#features">Features</a>
+        <a class="ghost-link" href="#quickstart">Quick Start</a>
+        <a class="ghost-link" href="#security">Security</a>
+      </nav>
+    </div>
+
+    <header id="top" class="hero">
+      <div>
+        <h1>Professional E2E automation starter for GitHub portfolio use</h1>
+        <p>
+          A polished public template for teams that need scalable browser automation with Playwright,
+          TypeScript, BDD, and Page Object Model architecture.
+        </p>
+
+        <div class="badge-row" aria-label="Technology badges">
+          <span class="pill">Playwright</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">BDD</span>
+          <span class="pill">POM</span>
+          <span class="pill">CI Ready</span>
         </div>
-        <h1>Playwright BDD Boilerplate</h1>
+
+        <div class="quality-badges" aria-label="Repository status badges">
+          <img src="https://img.shields.io/github/actions/workflow/status/alejandroSagreraC/playwright_test/quality.yml?branch=main&label=build&style=flat" alt="Build status">
+          <img src="https://img.shields.io/github/actions/workflow/status/alejandroSagreraC/playwright_test/quality.yml?branch=main&label=npm%20audit&style=flat" alt="NPM audit status">
+          <img src="https://img.shields.io/github/actions/workflow/status/alejandroSagreraC/playwright_test/quality.yml?branch=main&label=lint&style=flat" alt="Lint status">
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="../README.md" aria-label="Open technical readme">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 5h16v14H4z"></path>
+              <path d="M8 9h8"></path>
+              <path d="M8 13h8"></path>
+            </svg>
+            View Docs
+          </a>
+          <a class="btn secondary" href="https://github.com/alejandroSagreraC/playwright_test" target="_blank" rel="noreferrer" aria-label="Open GitHub repository">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.86-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .08 1.53 1.05 1.53 1.05.89 1.57 2.33 1.12 2.89.86.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.08 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05A9.32 9.32 0 0 1 12 6.8c.85 0 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.64 1.03 2.76 0 3.95-2.34 4.81-4.57 5.07.36.32.68.95.68 1.91 0 1.38-.01 2.49-.01 2.83 0 .27.18.59.69.49A10.2 10.2 0 0 0 22 12.23C22 6.58 17.52 2 12 2z"></path>
+            </svg>
+            GitHub
+          </a>
+        </div>
       </div>
-      <p>
-        A formal, production-friendly starter for E2E automation with Playwright, TypeScript, BDD, and the Page Object Model.
-        Built to serve as a public GitHub showcase and a reusable implementation baseline.
-      </p>
-      <div class="hero-meta" aria-label="Technology tags">
-        <span class="pill">Playwright</span>
-        <span class="pill">TypeScript</span>
-        <span class="pill">BDD</span>
-        <span class="pill">POM</span>
-        <span class="pill">CI/CD Ready</span>
-      </div>
+
+      <aside class="hero-panel" aria-label="Technology stack preview">
+        <div class="stack-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 12h16"></path>
+            <path d="M12 4v16"></path>
+          </svg>
+          Playwright Browser Automation
+        </div>
+        <div class="stack-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M3 7h18"></path>
+            <path d="M3 12h18"></path>
+            <path d="M3 17h10"></path>
+          </svg>
+          TypeScript First Workflow
+        </div>
+        <div class="stack-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M5 4h14v16H5z"></path>
+            <path d="M9 9h6"></path>
+            <path d="M9 13h6"></path>
+          </svg>
+          BDD + Gherkin Scenarios
+        </div>
+        <div class="stack-item">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 19h16"></path>
+            <path d="M7 15l3-3 2 2 5-5"></path>
+          </svg>
+          CI Pipeline Friendly
+        </div>
+      </aside>
     </header>
 
-    <section class="main-grid">
+    <section class="layout" id="features">
       <article class="card" style="--stagger: 1">
-        <h2 class="section-title">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M3 12h18"></path>
             <path d="M3 6h18"></path>
             <path d="M3 18h18"></path>
           </svg>
-          Features
+          Core Features
         </h2>
         <ul>
-          <li>Playwright + TypeScript for robust E2E testing.</li>
-          <li>BDD with Gherkin scenarios and step definitions.</li>
-          <li>POM to separate UI interactions from test behavior.</li>
-          <li>Multi-environment configuration via environment variables.</li>
-          <li>CI/CD-friendly structure and conventions.</li>
+          <li>Scalable E2E tests with Playwright + TypeScript.</li>
+          <li>Clear BDD test narratives with .feature files and step definitions.</li>
+          <li>POM-driven architecture for maintainable UI interactions.</li>
+          <li>Environment-based execution strategy for qa, stg, and prod.</li>
         </ul>
       </article>
 
       <article class="card" style="--stagger: 2">
-        <h2 class="section-title">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M4 7h16"></path>
-            <path d="M4 12h16"></path>
-            <path d="M4 17h10"></path>
+            <path d="M4 4h16v16H4z"></path>
+            <path d="M8 8h8"></path>
+            <path d="M8 12h8"></path>
+            <path d="M8 16h5"></path>
           </svg>
-          Project Structure
+          Project Layout
         </h2>
         <ul>
-          <li><code>features/</code>: Gherkin .feature files.</li>
-          <li><code>steps/</code>: BDD step implementations and fixtures.</li>
-          <li><code>models/</code>: Page Objects.</li>
-          <li><code>config/</code>: configuration helpers.</li>
-          <li><code>playwright.config.ts</code>: Playwright runtime configuration.</li>
+          <li><span class="inline-code">features/</span> for Gherkin scenarios.</li>
+          <li><span class="inline-code">steps/</span> for BDD implementation and fixtures.</li>
+          <li><span class="inline-code">models/</span> for page objects.</li>
+          <li><span class="inline-code">playwright.config.ts</span> for runtime setup.</li>
         </ul>
       </article>
 
       <article class="card" style="--stagger: 3">
-        <h2 class="section-title">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M12 3v18"></path>
             <path d="M3 12h18"></path>
           </svg>
           Requirements
         </h2>
-        <ul>
-          <li>Node.js 20 or later</li>
-          <li>npm</li>
-        </ul>
+        <div class="grid-3">
+          <div class="mini">Node.js 20+</div>
+          <div class="mini">npm</div>
+          <div class="mini">Playwright Browsers</div>
+        </div>
       </article>
 
-      <article class="card" style="--stagger: 4">
-        <h2 class="section-title">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M4 4h16v16H4z"></path>
-            <path d="M8 12h8"></path>
-          </svg>
-          Installation
-        </h2>
-        <pre><code>npm install
-npx playwright install</code></pre>
-      </article>
-
-      <article class="card" style="--stagger: 5">
-        <h2 class="section-title">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M4 6h16"></path>
-            <path d="M4 12h10"></path>
-            <path d="M4 18h8"></path>
-          </svg>
-          Quick Start
-        </h2>
-        <ol>
-          <li>Copy the environment template file.</li>
-          <li>Adjust variables for your application.</li>
-          <li>Run the test suite.</li>
-        </ol>
-        <pre><code># macOS/Linux
-cp .env.example .env.qa
-
-# Windows PowerShell
-copy .env.example .env.qa
-
-npm run bddgen
-npm run test:qa</code></pre>
-      </article>
-
-      <article class="card" style="--stagger: 6">
-        <h2 class="section-title">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M12 3l8 4v10l-8 4-8-4V7l8-4z"></path>
-            <path d="M8 12h8"></path>
-          </svg>
-          Environment Variables (Example)
-        </h2>
-        <pre><code>APP_BASE_URL=https://example.test
-E2E_USER=test.user@example.test
-E2E_PASSWORD=change_me
-ENV=qa</code></pre>
-      </article>
-
-      <article class="card" style="--stagger: 7">
-        <h2 class="section-title">
+      <article class="card" style="--stagger: 4" id="quickstart">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M5 4h14"></path>
             <path d="M5 12h14"></path>
             <path d="M5 20h14"></path>
           </svg>
-          Execution
+          Quick Start
         </h2>
-        <pre><code>npm run bddgen
-npm run test:qa
-npm run test:stg
-npm run test:prod</code></pre>
+        <ol>
+          <li>Install dependencies and browser binaries.</li>
+          <li>Create your environment file from the template.</li>
+          <li>Generate tests and execute the suite.</li>
+        </ol>
+        <pre><code>npm install
+npx playwright install
+copy .env.example .env.qa
+npm run bddgen
+npm run test:qa</code></pre>
       </article>
 
-      <article class="card" style="--stagger: 8">
-        <h2 class="section-title">
+      <article class="card" style="--stagger: 5">
+        <h2 class="card-title">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h10"></path>
+            <path d="M4 18h8"></path>
+          </svg>
+          Environment Sample
+        </h2>
+        <pre><code>BASE_URL=https://your-host/
+ADMIN_USER=your-user@company.com
+ADMIN_PASS=CHANGEME_USE_LOCAL_OR_CI_SECRET
+API_URL=https://your-host</code></pre>
+      </article>
+
+      <article class="card" style="--stagger: 6">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M4 4h16v12H4z"></path>
             <path d="M8 20h8"></path>
           </svg>
-          Reports
+          Reports and Artifacts
         </h2>
         <ul>
-          <li>Playwright HTML report.</li>
-          <li>Traces and execution artifacts for each run.</li>
+          <li>Native Playwright HTML report.</li>
+          <li>Trace artifacts to accelerate debugging.</li>
+          <li>Execution evidence ready for CI pipelines.</li>
         </ul>
         <pre><code>npx playwright show-report</code></pre>
       </article>
 
-      <article class="card full" style="--stagger: 9">
-        <h2 class="section-title">
+      <article class="card full" id="security" style="--stagger: 7">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M12 2l7 4v6c0 5-3.5 8.7-7 10-3.5-1.3-7-5-7-10V6l7-4z"></path>
             <path d="M9 12l2 2 4-4"></path>
           </svg>
-          Security Best Practices
+          Security and Publishing Baseline
         </h2>
         <ul>
-          <li>Never commit real credentials to the repository.</li>
-          <li>Use local .env files and CI secret managers.</li>
-          <li>Keep pre-commit hooks and secret scanning enabled.</li>
+          <li>Never commit real credentials.</li>
+          <li>Use local environment files and CI secret managers.</li>
+          <li>Keep secret scanning and lint checks active before push.</li>
         </ul>
+        <div class="highlight">Repository prepared to be used as a public GitHub showcase with sanitized documentation and secure defaults.</div>
       </article>
 
-      <article class="card full" style="--stagger: 10">
-        <h2 class="section-title">
+      <article class="card full" style="--stagger: 8">
+        <h2 class="card-title">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M12 4v16"></path>
             <path d="M5 11h14"></path>
           </svg>
           License
         </h2>
-        <p class="muted">Define the license for this template (for example, MIT).</p>
+        <p style="margin: 10px 0 0; color: var(--muted);">Add your preferred license (for example, MIT) in the repository root.</p>
       </article>
     </section>
 
-    <p class="footer">Prepared for GitHub Pages publication as a formal project showcase.</p>
+    <p class="footer">Designed for GitHub Pages publication as a formal technical showcase.</p>
   </main>
 </body>
 </html>
