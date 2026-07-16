@@ -1,80 +1,108 @@
-# Playwright BDD Boilerplate
+<div align="center">
 
-[![Quality](https://img.shields.io/github/actions/workflow/status/alejandroSagreraC/playwright_test/quality.yml?branch=main&label=quality)](https://github.com/alejandroSagreraC/playwright_test/actions/workflows/quality.yml)
-![Node](https://img.shields.io/badge/node-20%2B-339933?logo=node.js&logoColor=white)
-![Playwright](https://img.shields.io/badge/Playwright-1.59.1-45BA63?logo=playwright&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
-![BDD](https://img.shields.io/badge/BDD-Cucumber-23A457?logo=cucumber&logoColor=white)
-![License](https://img.shields.io/badge/license-ISC-1F6FEB)
+# 🎭 Playwright BDD Boilerplate
+
+
+### 🚀 Professional Starter Template for Enterprise Automation
+*Built with Playwright, TypeScript, Cucumber BDD, and Page Object Model Architecture*
+
+[![Quality](https://shields.io)](https://github.com)
+![Node](https://shields.io)
+![Playwright](https://shields.io)
+![TypeScript](https://shields.io)
+![BDD](https://shields.io)
+![License](https://shields.io)
+
+---
+</div>
 
 Professional starter template for end-to-end automation with Playwright, TypeScript, BDD (Gherkin), and Page Object Model architecture.
 
-Designed as both:
-- a production-ready baseline for QA automation teams,
-- and a polished public showcase for GitHub portfolios.
+Designed as both a **production-ready baseline** for QA automation teams and a **polished public showcase** for GitHub portfolios.
 
-## Highlights
+---
 
-- Playwright + TypeScript for reliable browser automation.
-- BDD workflow with feature files and step definitions.
-- POM structure for maintainable UI interaction logic.
-- Environment-based execution (qa, stg, prod).
-- CI quality gates with lint and npm audit.
-- Built-in secret-check script for safer public repositories.
+## 🌟 Highlights
 
-## Project Structure
+- **🎭 Playwright + TypeScript:** Built for lightning-fast and reliable browser automation.
+- **🥒 Cucumber BDD Workflow:** Human-readable Gherkin feature files mapped to step definitions.
+- **📐 Robust POM Structure:** Clean Page Object Models for maintainable UI interaction logic.
+- **🌐 Multi-Environment Control:** Seamless execution switching between variables (`qa`, `stg`, `prod`).
+- **🛡️ CI Quality Gates:** Fully integrated GitHub Actions workflows for linting, security, and testing.
+- **🔑 Built-in Secret Checks:** Security scripts designed to protect public repositories from credential leaks.
+
+---
+
+## 📂 Project Structure
 
 ```text
-features/              # Gherkin .feature files
-steps/                 # Step definitions and fixtures
-models/                # Page Object Models
-config/                # Environment and config helpers
-scripts/               # Utility scripts (security checks, etc.)
-docs/                  # GitHub Pages showcase
-playwright.config.ts   # Playwright runtime configuration
+playwright-bdd-boilerplate/
+├── 📑 features/              # Gherkin .feature specifications
+├── 🛠️ steps/                 # Step definitions and custom fixtures
+├── 🧩 models/                # Page Object Models (POM)
+├── ⚙️ config/                # Environment configuration and helpers
+├── 📜 scripts/               # Utility scripts (security checks, analytics)
+├── 🌐 docs/                  # GitHub Pages showcase site
+└── 🔧 playwright.config.ts   # Core Playwright runtime configuration
 ```
 
-## Requirements
+---
 
-- Node.js 20+
-- npm
+## 💻 Requirements
 
-## Installation
+- **Node.js** v20 or higher
+- **npm** package manager
+
+---
+
+## ⚙️ Installation
+
+Set up your development environment quickly with the following commands:
 
 ```bash
+# Clone the project and install all dependencies
 npm install
+
+# Download and configure required browser binaries
 npx playwright install
 ```
 
-## Quick Start
+---
 
-1. Create an environment file from the template.
-2. Configure target values for your system under test.
-3. Generate BDD runtime and execute tests.
+## 🚀 Quick Start
+
+1. **Setup Environment:** Create an environment file from the provided template.
+2. **Configure Variables:** Add the target URLs and endpoints for your application under test.
+3. **Run Automation:** Generate the BDD runtime files and execute your tests instantly.
 
 ```bash
-# macOS/Linux
+# Create local environment config
+# For macOS/Linux:
 cp .env.example .env.qa
 
-# Windows PowerShell
+# For Windows PowerShell:
 Copy-Item .env.example .env.qa
 
+# Compile Gherkin files and run tests
 npm run bddgen
 npm run test:qa
 ```
 
-## Environment Variables
+---
 
-Use placeholder values only in versioned files.
+## 🔑 Environment Variables
 
-| Variable | Description |
-| --- | --- |
-| BASE_URL | Base URL for the target application |
-| ADMIN_USER | Username for test authentication |
-| ADMIN_PASS | Password from local env or CI secret manager |
-| API_URL | API base URL |
+> [!WARNING]  
+> Never commit real credentials or production tokens to version control. Use placeholder values in configuration templates.
 
-Example:
+| Variable | Type | Description |
+| :--- | :--- | :--- |
+| `BASE_URL` | `string` | Base URL for the target web application |
+| `ADMIN_USER` | `string` | Username credential for test authentication suites |
+| `ADMIN_PASS` | `string` | Secure password extracted from local env or CI secret manager |
+| `API_URL` | `string` | Root REST API base URL for integration testing |
+
+### Example configuration (`.env.qa`)
 
 ```env
 BASE_URL="https://your-host/"
@@ -83,53 +111,67 @@ ADMIN_PASS="CHANGEME_USE_LOCAL_OR_CI_SECRET"
 API_URL="https://your-host"
 ```
 
-## Test Execution
+---
+
+## 🏃‍♂️ Test Execution
+
+Execute specific test suites targeting different execution layers using native npm scripts:
 
 ```bash
+# Execute environment-specific runs
 npm run test:qa
 npm run test:stg
 npm run test:prod
 ```
 
-Useful scripts:
+### 🛠️ Developer Utility Scripts
 
-- npm run bddgen
-- npm run lint
-- npm run check:secrets
+- `npm run bddgen` — Compiles and synchronizes BDD feature layers.
+- `npm run lint` — Analyzes TypeScript source code against quality rules.
+- `npm run check:secrets` — Scans local project tree for accidental credentials.
 
-## Reports
+---
 
-- Playwright HTML report
-- Trace artifacts for debugging and triage
+## 📊 Test Reports & Triaging
 
-Open the latest report:
+Gain clear visibility into test executions using Playwright's native reporting engine:
+
+* Rich **HTML Dashboards** with interactive results.
+* Full **Trace Viewer** artifacts for visual debugging, network inspection, and execution triage.
+
+To open and inspect your latest execution report, run:
 
 ```bash
 npx playwright show-report
 ```
 
-## CI Quality Gates
+---
 
-This repo includes a GitHub Actions workflow at `.github/workflows/quality.yml` with:
-- Build
-- Lint
-- npm audit
+## ⛓️ CI Quality Gates
 
-## Security Best Practices
+This repository includes a predefined, production-grade GitHub Actions workflow located at `.github/workflows/quality.yml`. Every code push triggers an isolated suite executing:
 
-- Never commit real credentials.
-- Keep `.env` files local and use CI secret stores.
-- Run secret checks before push: `npm run check:secrets`.
-- Keep ignore rules for local artifacts and auth state.
-- **Do not use client names, internal system names, or proprietary platform names** in source code, comments, or documentation. Use generic identifiers instead (e.g., `submitLoginCredentials` rather than a product-specific name).
-- The pre-commit hook automatically blocks known client keywords. To update the blocklist, edit `FORBIDDEN_CLIENT_KEYWORDS` in `scripts/check-secrets.js`.
-- When in doubt, ask: _"Would this identifier reveal who the client is?"_ — if yes, anonymize it.
+- 🏗️ **Clean Project Build** verifying code compilation.
+- 🚨 **Source Code Linting** ensuring style guideline conformity.
+- 📦 **Automated Dependency Audits** checking for vulnerable packages via `npm audit`.
 
-## GitHub Pages Showcase
+---
 
-The repository includes a professional landing page for public presentation:
-- `docs/index.html`
+## 🔒 Security Best Practices
 
-## License
+1. **Keep `.env` files local:** Ensure configuration instances remain untracked by Git.
+2. **Utilize Secrets Storage:** Inject confidential tokens dynamically via GitHub Secrets or CI environment vaults.
+3. **Pre-commit Shields:** Always execute `npm run check:secrets` prior to merging code to prevent leakage.
 
-ISC
+---
+
+## 🖥️ GitHub Pages Showcase
+
+This repository contains a professional static landing page optimized for hosting on **GitHub Pages**, providing an external dashboard for project stakeholders and portfolios:
+- 📎 View asset at `docs/index.html`
+
+---
+
+## 📄 License
+
+Distributed under the **ISC License**. See the root configuration files for legal permissions.
