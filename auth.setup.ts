@@ -74,7 +74,7 @@ async function clickLoginEntryPoint(page: Page): Promise<void> {
   }
 }
 
-async function submitMyIdCredentials(page: Page, username: string, password: string): Promise<void> {
+async function submitLoginCredentials(page: Page, username: string, password: string): Promise<void> {
   const passwordInput = page.locator('input[type="password"]').first();
 
   if (!(await passwordInput.isVisible().catch(() => false))) {
@@ -100,7 +100,7 @@ async function ensureAuthenticatedSession(page: Page, baseUrl: string, username:
   }
 
   await clickLoginEntryPoint(page);
-  await submitMyIdCredentials(page, username, password);
+  await submitLoginCredentials(page, username, password);
 
   const appOriginRegex = new RegExp(`^${escapeRegex(resolveOrigin(baseUrl))}`, 'i');
   await page.waitForURL(appOriginRegex, { timeout: AUTH_TIMEOUT_MS }).catch(() => undefined);

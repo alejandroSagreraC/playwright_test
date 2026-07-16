@@ -6,7 +6,7 @@ dotenv.config({ path: path.resolve(__dirname, `../.env.${ENV}`) });
 
 export const Config = {
   baseUrl: process.env.BASE_URL,
-  apiUrl: process.env.API_URL!,
+  apiUrl: process.env.API_URL,
   adminUser: process.env.ADMIN_USER || 'default_user',
   // We throw an error if the password is missing to fail fast
   get adminPass(): string {

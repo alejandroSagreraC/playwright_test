@@ -121,6 +121,9 @@ This repo includes a GitHub Actions workflow at `.github/workflows/quality.yml` 
 - Keep `.env` files local and use CI secret stores.
 - Run secret checks before push: `npm run check:secrets`.
 - Keep ignore rules for local artifacts and auth state.
+- **Do not use client names, internal system names, or proprietary platform names** in source code, comments, or documentation. Use generic identifiers instead (e.g., `submitLoginCredentials` rather than a product-specific name).
+- The pre-commit hook automatically blocks known client keywords. To update the blocklist, edit `FORBIDDEN_CLIENT_KEYWORDS` in `scripts/check-secrets.js`.
+- When in doubt, ask: _"Would this identifier reveal who the client is?"_ — if yes, anonymize it.
 
 ## GitHub Pages Showcase
 
